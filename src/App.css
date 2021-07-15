@@ -1,0 +1,14 @@
+.App {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: bisque;
+  width: 530px;
+  min-height: 500px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 270px 0px;
+}
