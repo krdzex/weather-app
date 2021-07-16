@@ -1,9 +1,8 @@
 import { Button } from '@material-ui/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import WeatherCard from './Components/WeatherCard';
-import { getLocation } from "./Components/LocationWeather";
 import WeatherDisplay from './Components/WeatherDisplay';
 
 
@@ -25,27 +24,47 @@ function App() {
   }));
   const classes = useStyles();
 
-  console.log(allLocations)
   const [newLocation, setNewLocation] = useState(false);
 
   const addNewLocation = () => {
     setNewLocation(true);
   }
 
-  const onSubmitChange = (input) => {
+
+  const onSubmitChange = (data) => {
     setNewLocation(false);
-    getLocation(input, data => {
-      setAllLocation([...allLocations, data]);
-    });
+    setAllLocation([...allLocations, data])
   }
 
+  const removePopup = () => {
+    setNewLocation(false)
+  }
+  useEffect(() => {
+    const locationsData = JSON.parse(localStorage.getItem("allLocations"));
+    setAllLocation(locationsData)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("allLocations", JSON.stringify(allLocations));
+  }, [allLocations])
+
+  const removeLocation = (locationId) => {
+    const locationsCopy = allLocations.slice();
+    for (let i = 0; i < locationsCopy.length; i++) {
+      if (i === locationId) {
+        locationsCopy.splice(i, 1);
+      }
+    }
+    setAllLocation(locationsCopy)
+  }
   return (
     <div className="App">
+      <header>Weather app</header>
       <div className="grid">
         {allLocations.map((location, id) => {
-          return <WeatherDisplay locationInfo={location} key={id} />
+          return <WeatherDisplay locationInfo={location} key={id} removeLocation={removeLocation} id={id} />
         })}
-        {newLocation && <WeatherCard newLocation={newLocation} onSubmitChange={onSubmitChange} />}
+        {newLocation && <WeatherCard newLocation={newLocation} onSubmitChange={onSubmitChange} removePopup={removePopup} />}
       </div>
 
 

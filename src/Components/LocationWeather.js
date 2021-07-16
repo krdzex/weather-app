@@ -11,8 +11,8 @@ const apiUrl = "http://api.openweathermap.org/data/2.5/weather?"
 const apiKey = "7220f5c667ff1617de464064d79c1118";
 
 
-const getLocation = (input, callback) => {
-    axios.get(`${apiUrl}`, {
+const getLocation = async (input, callback) => {
+    await axios.get(`${apiUrl}`, {
         params: {
             appid: apiKey,
             q: input,
