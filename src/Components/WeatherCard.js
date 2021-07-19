@@ -47,7 +47,7 @@ const WeatherCard = (props) => {
                 <Grid item xs container direction="column" spacing={2}>
                     <Grid item style={{}}>
                         <form onSubmit={submit}>
-                            <TextField id="standard-basic" label="Enter location" onChange={inputChanger} value={inputValue} />
+                            <TextField id="standard-basic" label="Enter location" onChange={inputChanger} value={inputValue} autoFocus />
                         </form>
                         {inputError && < Typography variant="body2" style={{ color: "red" }} onClick={() => props.removePopup()}>
                             We dont have that city,try again

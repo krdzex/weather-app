@@ -61,7 +61,7 @@ function App() {
     <div className="App">
       <header>Weather app</header>
       <div className="grid">
-        {allLocations.map((location, id) => {
+        {allLocations && allLocations.map((location, id) => {
           return <WeatherDisplay locationInfo={location} key={id} removeLocation={removeLocation} id={id} />
         })}
         {newLocation && <WeatherCard newLocation={newLocation} onSubmitChange={onSubmitChange} removePopup={removePopup} />}
