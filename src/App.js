@@ -40,8 +40,11 @@ function App() {
     setNewLocation(false)
   }
   useEffect(() => {
+
     const locationsData = JSON.parse(localStorage.getItem("allLocations"));
-    setAllLocation(locationsData)
+    if (locationsData) {
+      setAllLocation(locationsData)
+    }
   }, [])
 
   useEffect(() => {
@@ -61,7 +64,7 @@ function App() {
     <div className="App">
       <header>Weather app</header>
       <div className="grid">
-        {allLocations && allLocations.map((location, id) => {
+        {allLocations.map((location, id) => {
           return <WeatherDisplay locationInfo={location} key={id} removeLocation={removeLocation} id={id} />
         })}
         {newLocation && <WeatherCard newLocation={newLocation} onSubmitChange={onSubmitChange} removePopup={removePopup} />}
